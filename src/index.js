@@ -24,7 +24,7 @@ class Board extends React.Component {
   }
 
   render() {
-    let boardSize = 3;
+    let boardSize = 4;
     let board = [];
     for (let i = 0; i < boardSize; i++) {
       let row = [];
@@ -47,7 +47,7 @@ class Game extends React.Component {
     this.state = {
       history: [
         {
-          squares: Array(9).fill(null),
+          squares: Array(16).fill(null),
           location: Array(2).fill(null),
         },
       ],
@@ -173,25 +173,29 @@ ReactDOM.render(<Game />, document.getElementById("root"));
 
 function calculateWinner(squares) {
   const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
+    [0, 1, 2, 3],
+    [4, 5, 6, 7],
+    [8, 9, 10, 11],
+    [12, 13, 14, 15],
+    [0, 4, 8, 12],
+    [1, 2, 9, 13],
+    [2, 6, 10, 14],
+    [3, 7, 11, 15],
+    [0, 5, 10, 15],
+    [3, 6, 9, 12],
   ];
 
   var winner = {};
   for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
+    const [a, b, c, d] = lines[i];
     if (
       squares[a] &&
       squares[c] &&
       squares[b] &&
+      squares[d] &&
       JSON.stringify(squares[a]) === JSON.stringify(squares[b]) &&
-      JSON.stringify(squares[a]) === JSON.stringify(squares[c])
+      JSON.stringify(squares[a]) === JSON.stringify(squares[c]) &&
+      JSON.stringify(squares[a]) === JSON.stringify(squares[d])
     ) {
       winner = { isDraw: false, winSquare: squares[a], winLine: lines[i] };
       return winner;
@@ -214,17 +218,24 @@ function findLocation(label) {
     [0, 0],
     [0, 1],
     [0, 2],
+    [0, 3],
     [1, 0],
     [1, 1],
     [1, 2],
+    [1, 3],
     [2, 0],
     [2, 1],
     [2, 2],
+    [2, 3],
+    [3, 0],
+    [3, 1],
+    [3, 2],
+    [3, 3],
   ];
 
   for (let i = 0; i < locations.length; i++) {
     let [a, b] = locations[i];
-    if (3 * a + b === label) return locations[i];
+    if (4 * a + b === label) return locations[i];
   }
   return null;
 }
