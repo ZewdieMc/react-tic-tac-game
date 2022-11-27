@@ -57,4 +57,4 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(<h1>በጣም ነው ምወድሽ አንቺ ኮረሪማ። </h1>, document.getElementById("root"));
+ReactDOM.render(<h1>I Love You! </h1>, document.getElementById("root"));
